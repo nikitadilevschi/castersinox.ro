@@ -1,0 +1,345 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.product-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    background-color: #f7ebeb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.product-images {
+    position: relative;
+    width: 100%;
+}
+
+.zoom-effect {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-height: fit-content;
+    /*min-height: 760px;*/
+}
+
+.zoom-effect img {
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.zoom-effect:hover img {
+    transform: scale(1.8);
+}
+
+/* Prevent Zoom from Scaling too Much on Smaller Screens */
+@media (max-width: 768px) {
+    .zoom-effect img {
+        transform: scale(1.2);
+    }
+}
+
+@media (max-width: 480px) {
+    .zoom-effect img {
+        transform: scale(1);
+    }
+}
+/* Owl Carousel Custom Styling */
+.thumbnail .owl-carousel {
+    margin-top: 15px;
+    padding: 10px 0;
+}
+
+.thumbnail .owl-item {
+    padding: 5px;
+}
+
+.thumbnail .owl-item img {
+    width: 90px !important;
+    height: 90px !important;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    object-fit: cover;
+}
+
+.thumbnail .owl-item img:hover {
+    border-color: #007bff;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+}
+
+.thumbnail .owl-item.active img {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+}
+.owl-carousel .item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+.owl-carousel .item img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Custom Navigation Buttons */
+.carousel-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 0 10px;
+}
+
+.nav-btn {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Hide default Owl nav buttons */
+.thumbnail-images .owl-nav {
+    display: none;
+}
+
+.thumbnail-images .owl-dots {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .thumbnail-images .owl-item img {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .nav-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .thumbnail-images .owl-item img {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .carousel-controls {
+        padding: 0 5px;
+    }
+}
+/*.thumbnail-images {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    gap: 10px; !* Default gap between thumbnails *!*/
+/*    margin-top: 10px;*/
+/*    padding: 10px;*/
+
+/*    justify-content: flex-start;*/
+/*    align-items: center;*/
+/*    white-space: nowrap;*/
+/*}*/
+
+/*.thumbnail {*/
+/*    max-width: 80px; !* Adjust size *!*/
+/*    height: auto;*/
+/*    cursor: pointer;*/
+/*    transition: transform 0.3s ease;*/
+/*}*/
+
+/*.thumbnail-images img {*/
+/*    width: 80px;*/
+/*    height: 80px;*/
+/*    border: 1px solid #ff0000;*/
+/*    border-radius: 4px;*/
+/*    transition: transform 0.3s ease;*/
+/*}*/
+
+/*.thumbnail-images img:hover {*/
+/*    transform: scale(1.1);*/
+/*}*/
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .thumbnail-images img {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .thumbnail-images img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 300px) {
+    .thumbnail-images img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Common Product Details Styling */
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.product-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-selector button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.quantity-selector input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.add-to-cart {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-to-cart:hover {
+    background-color: #c0392b;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: #555;
+    font-size: 20px;
+}
+
+/* Larger Tablets & Small Laptops */
+@media (max-width: 1024px) {
+    .product-container {
+        padding: 12px;
+    }
+
+    .product-title, .product-description {
+        font-size: 18px;
+    }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+    .product-container {
+        padding: 16px;
+    }
+
+    .product-title {
+        font-size: 20px;
+    }
+
+    .product-description {
+        font-size: 14px;
+    }
+}
+
+/* Smaller Mobile Devices */
+@media (max-width: 600px) {
+    .product-title {
+        font-size: 18px;
+    }
+
+    .product-description {
+        font-size: 12px;
+    }
+}
+
+/* Very Small Mobile Devices */
+@media (max-width: 480px) {
+    .product-title {
+        font-size: 16px;
+    }
+
+    .product-description {
+        font-size: 12px;
+    }
+}
+
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+

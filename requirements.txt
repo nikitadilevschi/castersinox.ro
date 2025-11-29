@@ -1,0 +1,17 @@
+asgiref==3.8.1
+beautifulsoup4==4.13.4
+certifi==2025.7.14
+charset-normalizer==3.4.2
+Django==5.1.4
+greenlet==3.2.3
+idna==3.10
+lxml==6.0.0
+pillow==11.3.0
+psycopg2-binary==2.9.10
+python-dotenv==1.1.1
+requests==2.32.4
+soupsieve==2.7
+SQLAlchemy==2.0.41
+sqlparse==0.5.3
+typing_extensions==4.12.2
+urllib3==2.5.0

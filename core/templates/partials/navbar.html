@@ -1,0 +1,32 @@
+{% load static %}
+<nav id="navbar" class="s-12 grid background-none background-primary-hightlight">
+    <a href="{% url 'core:index' %}" class="m-12 l-3 logo">
+        <img src="{% static 'img/logo.svg' %}" alt="Logo">
+    </a>
+
+    <div class="top-nav s-12 l-9">
+        <ul class="top-ul right chevron">
+            <li class="{% if not current_category %}active{% endif %}">
+                <a href="{% url 'core:index' %}">Pagina Principala</a>
+            </li>
+            <li class="submenu">
+                <a>Categorii</a>
+                <ul>
+                    {% for category in categories %}
+                        <li class="{% if current_category and current_category.slug == category.slug %}active{% endif %}">
+                            <a href="{% url 'core:catalog' category.slug %}">{{ category.name|upper }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><a href="{% url 'core:contact' %}">CONTACT</a></li>
+            <li>
+                <a href="{% static 'catalog.pdf' %}" target="_blank">
+                    Descarca Catalog (PDF)
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+

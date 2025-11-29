@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load core_filters %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <!-- optional product-specific css (placed here because base.html has no head block) -->
+    <link rel="stylesheet" href="{% static 'css/product-page.css' %}">
+
+    <section class="margin padding-2x">
+        <div class="product-container">
+            <div class="product-images">
+                <div class="zoom-effect">
+                    {% if product.main_image %}
+                        <img id="mainImage" src="{{ product.main_image.image.url }}" alt="{{ product.name }}">
+                    {% else %}
+                        {% with first_img=product.images.all.first %}
+                            {% if first_img %}
+                                <img id="mainImage" src="{{ first_img.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                                <img id="mainImage" src="{% static 'img/masa.png' %}" alt="Main Product Image">
+                            {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                    <div class="zoom-lens" id="zoomLens"></div>
+                </div>
+                {% if product.images.all|length > 1 %}
+                    <div id="thumbnail" class="owl-carousel owl-theme padding-2x">
+                        {% for img in product.images.all %}
+                            <div class="item">
+                                <img src="{{ img.image.url }}" alt="{{ product.name }} thumbnail {{ forloop.counter }}" onclick="changeMainImage(this)">
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="product-details">
+                <div class="product-title text-red text-center">{{ product.name }}</div>
+
+                <div class="product-description text-size-16 text-dark text-center">
+                    {{ product.description|linebreaksbr }}
+                </div>
+
+                {% with parsed=product.features|parse_features %}
+                    {% if parsed %}
+                        <div class="product-title text-red text-center">Mai multe detalii:</div>
+
+                        {% if parsed and parsed|has_any_value %}
+                            <table class="text-dark text-center">
+                                <thead>
+                                <tr><th>Caracteristici</th><th>Atribute</th></tr>
+                                </thead>
+                                <tbody>
+                                {% for p in parsed %}
+                                    <tr>
+                                        <th class="text-left">{{ p.k }}</th>
+                                        <td class="text-center">{% if p.v %}{{ p.v }}{% else %}-{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <table class="text-dark">
+                                <thead>
+                                <tr><th>Caracteristice</th></tr>
+                                </thead>
+                                <tbody>
+                                {% for p in parsed %}
+                                    <tr>
+                                        <td class="text-left">{{ p.k }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endif %}
+                    {% endif %}
+                {% endwith %}
+
+                {% if related_products %}
+                    <div class="product-title text-red text-center">Produse similare</div>
+                    <div class="product-grid grid text-center">
+                        {% for rel in related_products %}
+                            <div class="product-card">
+                                {% if rel.main_image %}
+                                    <div class="product-image" style="background-image: url('{{ rel.main_image.image.url }}');"></div>
+                                {% endif %}
+                                <div class="product-info">
+                                    <div class="product-name">{{ rel.name }}</div>
+                                </div>
+                                <a class="product-quick-view" href="{% url 'core:product_detail' rel.slug %}">
+                                    View
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="text/javascript" src="{% static 'js/thumbs.js' %}"></script>
+{% endblock %}

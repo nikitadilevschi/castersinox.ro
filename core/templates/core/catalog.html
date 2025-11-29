@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2 class="s-12 text-red text-thin text-size-30 text-red text-uppercase margin-top-bottom-40 center text-center">
+        {% if current_subcategory %}
+            Produse în subcategoria <b>{{ current_subcategory.name }}</b>
+        {% elif current_category %}
+            Produse în categoria <b>{{ current_category.name }}</b>
+        {% endif %}
+    </h2>
+
+    {% if subcategories and subcategories.exists and not current_subcategory %}
+        <div class="product-grid grid text-center">
+            {% for sub in subcategories %}
+                <div class="product-card">
+                    {% if sub.main_image %}
+                        <div class="product-image" style="background-image: url('{{ sub.main_image.image.url }}');"></div>
+                    {% endif %}
+                    <div class="product-info">
+                        <div class="product-name">{{ sub.name }}</div>
+                    </div>
+
+                    <a class="product-quick-view" style="cursor: pointer;" href="{% url 'core:catalog' category_slug=current_category.slug subcategory_slug=sub.slug %}">
+                        Vezi mai multe
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if products %}
+        <div class="product-grid grid text-center">
+            {% for prod in products %}
+                <div class="product-card">
+                    {% if prod.main_image %}
+                        <div class="product-image" style="background-image: url('{{ prod.main_image.image.url }}');"></div>
+                    {% endif %}
+                    <div class="product-info">
+                        <div class="product-name">{{ prod.name }}</div>
+                    </div>
+
+                    <a class="product-quick-view" style="cursor: pointer;" href="{% url 'core:product_detail' prod.slug %}">
+                        Vezi mai multe
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+

@@ -1,0 +1,288 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block carousel %}{% endblock %}
+{% block content %}
+    <div class="main-container">
+
+        <form method="post" action="">
+            {% csrf_token %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-red text-center text-size-25">{{ message }}</div>
+            {% endfor %}
+            <div class="form-wrapper">
+                <img
+                        src="{% static 'img/logo.svg' %}"
+                        alt="Survey Form Illustration"
+                        class="form-image center"
+                />
+
+                <div class="form-header">
+                    <h2 class="form-title">Completează formularul de mai jos pentru a primi oferta personal</h2>
+                </div>
+
+                {% if success %}
+                    <div class="alert alert-success">Mulțumim! Cererea a fost trimisă.</div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="{{ form.fullname.id_for_label }}" class="form-label">{{ form.fullname.label }}</label>
+                    {{ form.fullname }}
+                    {{ form.fullname.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.phone.id_for_label }}" class="form-label">{{ form.phone.label }}</label>
+                    {{ form.phone }}
+                    {{ form.phone.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.company.id_for_label }}" class="form-label">{{ form.company.label }}</label>
+                    {{ form.company }}
+                    {{ form.company.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.message.id_for_label }}" class="form-label">{{ form.message.label }}</label>
+                    {{ form.message }}
+                    {{ form.message.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">{{ form.features_used.label }}:</label>
+                    <div class="options-group product-grid">
+                        {% for checkbox in form.features_used %}
+                            <label class="option-item">{{ checkbox.tag }} {{ checkbox.choice_label }}</label>
+                        {% endfor %}
+                    </div>
+                    {{ form.features_used.errors }}
+                </div>
+
+                <div class="consent-group">
+                    {{ form.testimonial_consent }}
+                    <label for="testimonial-consent" class="consent-label">{{ form.testimonial_consent.label }}</label>
+                    {{ form.testimonial_consent.errors }}
+                </div>
+                <button type="submit" class="submit-btn">Trimite cererea</button>
+        </form>
+    </div>
+    </div>
+    <style>
+        /* General Body and Font Styles */
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+        }
+
+        /* Main container for centering the form */
+        .main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1rem;
+            padding-top: calc(3rem + var(--header-height));
+            padding-bottom: calc(3rem + var(--footer-height));
+            min-height: calc(100vh - var(--header-height) - var(--footer-height));
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Form wrapper/card */
+        .form-wrapper {
+            width: 100%;
+            max-width: clamp(20rem, 90vw, 36rem); /* min 320px, prefers up to 36rem */
+            border-radius: 0.5rem;
+            background-color: white;
+            padding: 1.25rem; /* reduced padding */
+            box-shadow: 0 8px 14px rgba(0,0,0,0.06);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Top image styling */
+        .form-image {
+            margin-bottom: 1.5rem;
+            width: 36%; /* smaller image */
+            border-radius: 0.375rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Header section for title and description */
+        .form-header {
+            margin-bottom: 2rem; /* mb-8 */
+            text-align: center;
+        }
+
+        .form-title {
+            font-size: 1.25rem; /* smaller */
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+
+        /* Container for each form field group */
+        {#.form-group {#}
+        {#    margin-bottom: 1.5rem; /* mb-6 */#}
+        {#}#}
+
+        /* Form labels */
+        .form-label {
+            display: block;
+            margin-bottom: 0.4rem; /* mb-2 */
+            font-size: 1rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+            color: #4b5563; /* text-gray-600 */
+        }
+
+        /* Common styles for input, select, and textarea */
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            border-radius: 0.375rem; /* rounded-md */
+            border: 1px solid #d1d5db; /* border-gray-300 */
+        {#padding: 0.75rem; /* p-3 */#}
+            font-size: 0.875rem; /* text-sm */
+            color: #1f2937; /* text-gray-800 */
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: #6366f1; /* focus:border-indigo-500 */
+            box-shadow: 0 0 0 1px #6366f1; /* focus:ring-1 focus:ring-indigo-500 */
+            outline: none;
+        }
+
+        /* Interactive Star Rating */
+        .star-rating-group {
+            display: flex;
+            flex-direction: row-reverse; /* Reverse the order of stars to make the CSS work */
+            justify-content: flex-end; /* Aligns the reversed stars to the left */
+        }
+
+        .star-rating-group input[type="radio"] {
+            display: none; /* Hide the actual radio buttons */
+        }
+
+        .star-rating-group label {
+            font-size: 2rem; /* Size of the star characters */
+            color: #d1d5db; /* Default, unselected star color */
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+            padding: 0 0.1em;
+        }
+
+        /* Change color on hover */
+        .star-rating-group label:hover,
+        .star-rating-group label:hover ~ label {
+            color: #f59e0b; /* Gold color for hovered stars */
+        }
+
+        /* Keep stars colored when a radio button is checked */
+        .star-rating-group input[type="radio"]:checked ~ label {
+            color: #f59e0b; /* Gold color for selected stars */
+        }
+
+        /* Radio and Checkbox Groups */
+        .options-group {
+            {#display: flex;#}
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            gap: 1rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            color: black;!important;
+            font-size: 1.1rem;
+        }
+
+        .form-radio,
+        .form-checkbox {
+            height: 1rem;
+            width: 1rem;
+            color: #4f46e5;
+            margin-right: 0.5rem;
+        }
+
+        .options-group-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* Consent Checkbox Group */
+        .consent-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .consent-label {
+            margin-left: 0.5rem;
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            border-radius: 0.375rem;
+            background-color: #fa3232;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #bb0000;
+        }
+
+        .submit-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 640px) {
+            .main-container {
+                padding: 1rem;
+            }
+            .form-wrapper {
+                padding: 1.5rem;
+            }
+            .form-title {
+                font-size: 1.5rem;
+            }
+            .options-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+        }
+        /* Small responsive tweak so spacing stays correct on small screens */
+        @media (max-width: 640px) {
+            .main-container {
+                padding-top: calc(1.5rem + var(--header-height));
+                padding-bottom: calc(1.5rem + var(--footer-height));
+            }
+            .form-wrapper {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+{% endblock %}
