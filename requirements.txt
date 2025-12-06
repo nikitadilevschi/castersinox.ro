@@ -1,3 +1,4 @@
+django-modeltranslation
 asgiref==3.8.1
 beautifulsoup4==4.13.4
 certifi==2025.7.14

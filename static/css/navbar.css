@@ -1,0 +1,48 @@
+    /* Scope all language-specific dropdown styles to the language-submenu only */
+    .top-nav .top-ul .submenu.language-submenu { position: relative; }
+
+    /* language dropdown panel */
+    .top-nav .top-ul .submenu.language-submenu ul {
+        position: absolute;
+        left: 0;
+        top: calc(100% - 25px);
+        background: var(--language-submenu-bg, #ffffff);
+        z-index: 50;
+        padding: 0.25rem 0;
+        min-width: 8rem;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    /* language items */
+    .top-nav .top-ul .submenu.language-submenu ul li { list-style: none; }
+
+    /* anchors and language button look identical (language only) */
+    .top-nav .top-ul .submenu.language-submenu ul li a,
+    .top-nav .top-ul .submenu.language-submenu ul li .link-button {
+        display: block;
+        padding: 0.4rem 0.9rem;
+        color: var(--language-link-color, #222); /* readable color only for language submenu */
+        text-decoration: none;
+        white-space: nowrap;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    /* button appearance for language */
+    .top-nav .top-ul .submenu.language-submenu ul li .link-button {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    /* active / hover states for language submenu */
+    .top-nav .top-ul .submenu.language-submenu ul li.active a,
+    .top-nav .top-ul .submenu.language-submenu ul li.active .link-button {
+        color: var(--language-active-color, #c0392b);
+    }
+
+    .top-nav .top-ul .submenu.language-submenu ul li a:hover,
+    .top-nav .top-ul .submenu.language-submenu ul li .link-button:hover {
+        background: rgba(0,0,0,0.04);
+    }

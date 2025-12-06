@@ -1,4 +1,9 @@
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
 <nav id="navbar" class="s-12 grid background-none background-primary-hightlight">
     <a href="{% url 'core:index' %}" class="m-12 l-3 logo">
         <img src="{% static 'img/logo.svg' %}" alt="Logo">
@@ -19,14 +24,31 @@
                     {% endfor %}
                 </ul>
             </li>
-            <li><a href="{% url 'core:contact' %}">CONTACT</a></li>
             <li>
-                <a href="{% static 'catalog.pdf' %}" target="_blank">
-                    Descarca Catalog (PDF)
-                </a>
+                {% if LANGUAGE_CODE == 'ro' %}
+                    <a href="{% static 'documents/catalog_ro.pdf' %}" target="_blank">Descarcă Catalog (PDF)</a>
+                {% elif LANGUAGE_CODE == 'ru' %}
+                    <a href="{% static 'documents/catalog_ru.pdf' %}" target="_blank">Скачать каталог (PDF)</a>
+                {% elif LANGUAGE_CODE == 'en' %}
+                    <a href="{% static 'documents/catalog_en.pdf' %}" target="_blank">Download Catalog (PDF)</a>
+                {% endif %}
+            </li>
+            <li><a href="{% url 'core:contact' %}">CONTACT</a></li>
+            {% get_language_info for LANGUAGE_CODE as LANG_INFO %}
+            <li class="submenu language-submenu">
+                <a>{{ LANG_INFO.name_local|upper }}</a>
+                <ul>
+                    {% for code, name in LANGUAGES %}
+                        <li class="{% if LANGUAGE_CODE == code %}active{% endif %}">
+                            <form action="{% url 'set_language' %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                                <button type="submit" name="language" value="{{ code }}" class="link-button">{{ name|upper }}</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
             </li>
         </ul>
     </div>
 </nav>
-
-

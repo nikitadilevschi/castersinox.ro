@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Category, SubCategory, Product, ProductImage, ContactSubmission
 from django import forms
 from django.utils.html import format_html
+from modeltranslation.admin import TranslationAdmin
 
 
 # Register your models here.
