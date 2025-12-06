@@ -42,6 +42,7 @@ CSRF_TRUSTED_ORIGINS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +50,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core'
+]
+
+LANGUAGES = [
+    ('ro', 'Romanian'),
+    ('ru', 'Russian'),
+    ('en', 'English'),
 ]
 
 MIDDLEWARE = [
